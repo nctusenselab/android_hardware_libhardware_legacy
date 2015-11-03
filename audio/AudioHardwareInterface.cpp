@@ -112,7 +112,7 @@ String8 AudioHardwareBase::getParameters(const String8& keys)
 // default implementation
 size_t AudioHardwareBase::getInputBufferSize(uint32_t sampleRate, int format, int channelCount)
 {
-    if (sampleRate != 8000) {
+    if ( !(sampleRate == 8000  || sampleRate == 16000 || sampleRate == 22050 || sampleRate == 44100 || sampleRate == 48000 || sampleRate == 92000)) {
         ALOGW("getInputBufferSize bad sampling rate: %d", sampleRate);
         return 0;
     }
@@ -120,12 +120,12 @@ size_t AudioHardwareBase::getInputBufferSize(uint32_t sampleRate, int format, in
         ALOGW("getInputBufferSize bad format: %d", format);
         return 0;
     }
-    if (channelCount != 1) {
+    if (! (channelCount == 1 || channelCount == 2) ) {
         ALOGW("getInputBufferSize bad channel count: %d", channelCount);
         return 0;
     }
 
-    return 320;
+    return 4096;
 }
 
 // default implementation is unsupported
